@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Сдаём! — Помощь студентам с учебными работами</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ==================== CSS Variables ==================== */
+    :root {
+      --color-primary: #1a1f5e;
+      --color-primary-light: #252a70;
+      --color-accent: #4f6ef7;
+      --color-accent-hover: #3a5ceb;
+      --color-text: #1a1a2e;
+      --color-text-muted: #6b7280;
+      --color-white: #ffffff;
+      --color-bg-light: #f8f9fc;
+      --color-border: #e5e7eb;
+      --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --max-width: 1200px;
+      --header-height: 72px;
+      --transition: 0.3s ease;
+    }
+
+    /* ==================== Base Reset ==================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-family);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--color-text);
+      background-color: var(--color-white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+    }
+
+    ul, ol {
+      list-style: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ==================== Header ==================== */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--header-height);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--color-border);
+      z-index: 1000;
+    }
+
+    .header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo svg {
+      width: 100px;
+      height: auto;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-link {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--color-text);
+      transition: color var(--transition);
+    }
+
+    .nav-link:hover {
+      color: var(--color-accent);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 24px;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 8px;
+      transition: all var(--transition);
+    }
+
+    .btn-primary {
+      background: var(--color-accent);
+      color: var(--color-white);
+    }
+
+    .btn-primary:hover {
+      background: var(--color-accent-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(79, 110, 247, 0.3);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      width: 32px;
+      height: 32px;
+      background: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .mobile-menu-btn span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--color-text);
+      border-radius: 2px;
+    }
+
+    /* ==================== Hero Section ==================== */
+    .hero {
+      padding: 160px 0 100px;
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(79, 110, 247, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(114, 211, 236, 0.1) 0%, transparent 40%);
+      pointer-events: none;
+    }
+
+    .hero-geometric {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .hero-geometric::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 400px;
+      height: 400px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 50%;
+    }
+
+    .hero-geometric::after {
+      content: '';
+      position: absolute;
+      bottom: -50px;
+      left: 10%;
+      width: 300px;
+      height: 300px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      border-radius: 50%;
+    }
+
+    .hero .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-content {
+      max-width: 720px;
+    }
+
+    .hero h1 {
+      font-size: 52px;
+      font-weight: 700;
+      color: var(--color-white);
+      line-height: 1.15;
+      margin-bottom: 24px;
+    }
+
+    .hero-subtitle {
+      font-size: 20px;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 40px;
+      max-width: 560px;
+    }
+
+    .hero .btn-primary {
+      background: var(--color-white);
+      color: var(--color-primary);
+    }
+
+    .hero .btn-primary:hover {
+      background: rgba(255, 255, 255, 0.9);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    /* ==================== Services Section ==================== */
+    .services {
+      padding: 100px 0;
+      background: var(--color-bg-light);
+    }
+
+    .section-title {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--color-text);
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      font-size: 18px;
+      color: var(--color-text-muted);
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .service-card {
+      background: var(--color-white);
+      border-radius: 16px;
+      padding: 32px;
+      border: 1px solid var(--color-border);
+      transition: all var(--transition);
+    }
+
+    .service-card:hover {
+      border-color: var(--color-accent);
+      box-shadow: 0 8px 24px rgba(79, 110, 247, 0.1);
+      transform: translateY(-4px);
+    }
+
+    .service-icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .service-icon svg {
+      width: 28px;
+      height: 28px;
+      stroke: var(--color-white);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .service-card h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .service-card p {
+      font-size: 15px;
+      color: var(--color-text-muted);
+    }
+
+    /* ==================== How We Work Section ==================== */
+    .how-we-work {
+      padding: 100px 0;
+    }
+
+    .steps {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 40px;
+      position: relative;
+    }
+
+    .steps::before {
+      content: '';
+      position: absolute;
+      top: 40px;
+      left: 15%;
+      right: 15%;
+      height: 2px;
+      background: var(--color-border);
+    }
+
+    .step {
+      flex: 1;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-number {
+      width: 80px;
+      height: 80px;
+      background: var(--color-white);
+      border: 2px solid var(--color-accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--color-accent);
+    }
+
+    .step h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .step p {
+      font-size: 15px;
+      color: var(--color-text-muted);
+    }
+
+    .step-arrow {
+      position: absolute;
+      top: 40px;
+      right: -30px;
+      color: var(--color-border);
+    }
+
+    /* ==================== Why Us Section ==================== */
+    .why-us {
+      padding: 100px 0;
+      background: var(--color-bg-light);
+    }
+
+    .features-list {
+      display: flex;
+      justify-content: space-between;
+      gap: 40px;
+    }
+
+    .feature-item {
+      flex: 1;
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    .feature-icon {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      background: var(--color-white);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--color-border);
+    }
+
+    .feature-icon svg {
+      width: 24px;
+      height: 24px;
+      stroke: var(--color-accent);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .feature-content h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .feature-content p {
+      font-size: 15px;
+      color: var(--color-text-muted);
+    }
+
+    /* ==================== Contact Form Section ==================== */
+    .contact {
+      padding: 100px 0;
+    }
+
+    .contact-form-wrapper {
+      max-width: 600px;
+      margin: 0 auto;
+      background: var(--color-white);
+      border-radius: 20px;
+      padding: 48px;
+      border: 1px solid var(--color-border);
+      box-shadow: 0 8px 32px rgba(26, 31, 94, 0.08);
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 15px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: var(--color-text);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px 18px;
+      font-size: 16px;
+      font-family: inherit;
+      border: 1px solid var(--color-border);
+      border-radius: 10px;
+      background: var(--color-white);
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 3px rgba(79, 110, 247, 0.1);
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: var(--color-text-muted);
+    }
+
+    .form-group .required-mark {
+      color: #e87477;
+    }
+
+    .contact-form .btn {
+      width: 100%;
+      padding: 16px 32px;
+      font-size: 16px;
+    }
+
+    .form-success {
+      display: none;
+      padding: 20px;
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      border-radius: 10px;
+      color: #065f46;
+      font-size: 16px;
+      text-align: center;
+    }
+
+    .form-success.show {
+      display: block;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* ==================== Footer ==================== */
+    .footer {
+      background: var(--color-primary);
+      padding: 48px 0;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--color-white);
+    }
+
+    .footer-contact {
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .footer-contact a {
+      color: rgba(255, 255, 255, 0.7);
+      transition: color var(--transition);
+    }
+
+    .footer-contact a:hover {
+      color: var(--color-white);
+    }
+
+    .footer-copyright {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* ==================== Media Queries ==================== */
+    @media (max-width: 1024px) {
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .features-list {
+        flex-wrap: wrap;
+      }
+
+      .feature-item {
+        flex: 1 1 calc(50% - 20px);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav {
+        display: none;
+        position: absolute;
+        top: var(--header-height);
+        left: 0;
+        right: 0;
+        background: var(--color-white);
+        flex-direction: column;
+        padding: 24px;
+        gap: 16px;
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      .nav.active {
+        display: flex;
+      }
+
+      .mobile-menu-btn {
+        display: flex;
+      }
+
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .hero-subtitle {
+        font-size: 17px;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .steps {
+        flex-direction: column;
+        gap: 32px;
+      }
+
+      .steps::before {
+        display: none;
+      }
+
+      .step-arrow {
+        display: none;
+      }
+
+      .features-list {
+        flex-direction: column;
+      }
+
+      .feature-item {
+        flex: 1 1 100%;
+      }
+
+      .contact-form-wrapper {
+        padding: 32px 24px;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        padding: 140px 0 80px;
+      }
+
+      .hero h1 {
+        font-size: 28px;
+      }
+
+      .section-title {
+        font-size: 28px;
+      }
+
+      .service-card {
+        padding: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- ==================== Header ==================== -->
+  <header class="header">
+    <div class="container">
+      <a href="#" class="logo">
+        <svg viewBox="57 4 1117 465" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <g id="shape-2933304f-f4cd-80b9-8008-013cc59f2cc3" rx="0" ry="0">
+            <g id="shape-14f954a7-2e3b-8074-8007-f2c789be73d8">
+              <rect rx="200" ry="200" x="57" y="4" width="1117" height="464.99999999999994" fill="#010f15"></rect>
+            </g>
+            <g id="shape-ea1fea0f-a83e-80e3-8007-f2f94bc71ec6" rx="0" ry="0">
+              <g id="shape-14f954a7-2e3b-8074-8007-f2c9ca84c04a">
+                <rect rx="50" ry="50" x="811" y="117" width="239" height="239" fill="none" stroke="#72D3EC" stroke-width="40"></rect>
+              </g>
+              <path d="M852.144287109375,195.04249572753906L926.54443359375,307.3099365234375L937.7333374023438,290.70233154296875L1052.3115234375,120.63555145263672" fill="none" stroke="#e87477" stroke-width="25" stroke-linecap="round" style="filter: drop-shadow(5px 4px 0px rgba(1,15,21,0.2));"></path>
+            </g>
+            <g id="shape-ea1fea0f-a83e-80e3-8007-f2dd772c0beb" fill="#000000">
+              <path d="M200.0800018310547,308.2300109863281C191.8000030517578,308.2300109863281,184.20999145507812,306.30999755859375,177.30999755859375,302.4700012207031C170.41000366210938,298.6300048828125,164.8900146484375,292.7200012207031,160.75,284.7400207519531C156.6099853515625,276.760009765625,154.54000854492188,266.77001953125,154.54000854492188,254.77001953125L154.54000854492188,254.77001953125C154.54000854492188,244.69000244140625,156.07000732421875,235,159.1300048828125,225.70001220703125C162.19000244140625,216.4000244140625,166.57000732421875,208.1199951171875,172.26998901367188,200.86001586914062C177.97000122070312,193.60000610351562,184.8699951171875,187.83999633789062,192.97000122070312,183.58001708984375C201.07000732421875,179.32000732421875,210.16000366210938,177.19000244140625,220.239990234375,177.19000244140625L220.239990234375,177.19000244140625C226.36000061035156,177.19000244140625,232.54000854492188,178,238.77999877929688,179.6199951171875C245.01998901367188,181.239990234375,251.5,183.61001586914062,258.2200012207031,186.73001098632812L258.2200012207031,186.73001098632812L251.9199981689453,218.58999633789062L236.98001098632812,218.58999633789062L235.89999389648438,198.07000732421875L240.22000122070312,201.85000610351562C236.6199951171875,200.29000854492188,233.0500030517578,199.1500244140625,229.510009765625,198.42999267578125C225.97000122070312,197.71002197265625,222.760009765625,197.35000610351562,219.8800048828125,197.35000610351562L219.8800048828125,197.35000610351562C213.51998901367188,197.35000610351562,207.94000244140625,199.02999877929688,203.13999938964844,202.3900146484375C198.33999633789062,205.75,194.29000854492188,210.19000244140625,190.99000549316406,215.71002197265625C187.69000244140625,221.23001098632812,185.23001098632812,227.32000732421875,183.6099853515625,233.98001098632812C181.989990234375,240.6400146484375,181.17999267578125,247.21002197265625,181.17999267578125,253.69000244140625L181.17999267578125,254.77001953125C181.17999267578125,266.77001953125,183.24996948242188,276.760009765625,187.38998413085938,284.7400207519531C191.52999877929688,292.7200012207031,197.04998779296875,298.6300048828125,203.94998168945312,302.4700012207031C210.8499755859375,306.30999755859375,218.4399871826172,308.2300109863281,226.71998596191406,308.2300109863281L200.0800018310547,308.2300109863281Z" fill="#ffffff"></path>
+              <path d="M735.219970703125,260.8900146484375L717.0399780273438,261.9700012207031L725.8599853515625,179.35000610351562L752.1400146484375,179.35000610351562L735.219970703125,260.8900146484375L735.219970703125,260.8900146484375M719.5599975585938,307.8699951171875C715.47998046875,307.8699951171875,712.2999877929688,306.70001220703125,710.02001953125,304.3599853515625C707.739990234375,302.0199890136719,706.5999755859375,298.92999267578125,706.5999755859375,295.0899963378906C706.5999755859375,290.4100036621094,708.0999755859375,286.6300048828125,711.0999755859375,283.75C714.0999755859375,280.8699951171875,717.8800048828125,279.42999267578125,722.4400024414062,279.42999267578125C726.52001953125,279.42999267578125,729.760009765625,280.6000061035156,732.1599731445312,282.94000244140625C734.5599975585938,285.2799987792969,735.760009765625,288.489990234375,735.760009765625,292.57000732421875C735.760009765625,297.25,734.2000122070312,300.9700012207031,731.0800170898438,303.7300109863281C727.9600219726562,306.489990234375,724.1199951171875,307.8699951171875,719.5599975585938,307.8699951171875L719.5599975585938,307.8699951171875" fill="#E87477"></path>
+              <path d="M548.5599975585938,193.92999267578125C545.0799560546875,193.92999267578125,542.3499755859375,192.79000854492188,540.3699951171875,190.510009765625C538.3900146484375,188.23001098632812,537.4000244140625,185.23001098632812,537.4000244140625,181.510009765625C537.4000244140625,177.19000244140625,538.6300048828125,173.6500244140625,541.0899658203125,170.8900146484375C543.5499877929688,168.1300048828125,546.760009765625,166.75,550.719970703125,166.75C554.2000122070312,166.75,556.9599609375,167.8599853515625,559,170.08001708984375C561.0400390625,172.29998779296875,562.0599975585938,175.33001708984375,562.0599975585938,179.17001342773438C562.0599975585938,183.489990234375,560.77001953125,187.02999877929688,558.1900024414062,189.79000854492188C555.6099853515625,192.55001831054688,552.4000244140625,193.92999267578125,548.5599975585938,193.92999267578125L548.5599975585938,193.92999267578125M510.5799865722656,193.92999267578125C507.1000061035156,193.92999267578125,504.3699951171875,192.79000854492188,502.3900144375,190.510009765625C500.4100036621094,188.23001098632812,499.4200134277344,185.23001098632812,499.4200134277344,181.510009765625C499.4200134277344,177.19000244140625,500.6499938964844,173.6500244140625,503.1099853515625,170.8900146484375C505.57000732421875,168.1300048828125,508.7799987792969,166.75,512.739990234375,166.75C516.219970703125,166.75,518.97998046875,167.8599853515625,521.02001953125,170.08001708984375C523.0599975585938,172.29998779296875,524.0799560546875,175.33001708984375,524.0799560546875,179.17001342773438C524.0799560546875,183.489990234375,522.8200073242188,187.02999877929688,520.2999877929688,189.79000854492188C517.780029296875,192.55001831054688,514.5400390625,193.92999267578125,510.5799865722656,193.92999267578125L510.5799865722656,193.92999267578125" fill="#ffffff"></path>
+            </g>
+          </g>
+        </svg>
+      </a>
+      <nav class="nav" id="nav">
+        <a href="#services" class="nav-link">Услуги</a>
+        <a href="#how-we-work" class="nav-link">Как мы работаем</a>
+        <a href="#why-us" class="nav-link">Отзывы</a>
+        <a href="#contact" class="btn btn-primary">Получить консультацию</a>
+      </nav>
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Открыть меню">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== Hero Section ==================== -->
+  <section class="hero">
+    <div class="hero-geometric"></div>
+    <div class="container">
+      <div class="hero-content">
+        <h1>Разберёмся с любой учебной задачей</h1>
+        <p class="hero-subtitle">Помогаем студентам с курсовыми, дипломами, рефератами и отчётами по практике. Без плагиата, в срок.</p>
+        <a href="#contact" class="btn btn-primary">Оставить заявку</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== Services Section ==================== -->
+  <section class="services" id="services">
+    <div class="container">
+      <h2 class="section-title">Наши услуги</h2>
+      <p class="section-subtitle">Полный спектр академических работ для любого уровня сложности</p>
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          </div>
+          <h3>Курсовые работы</h3>
+          <p>Соблюдаем требования методичек, оформляем по ГОСТу</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          </div>
+          <h3>Дипломные и магистерские</h3>
+          <p>Полное сопровождение до защиты, включая презентацию</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+          </div>
+          <h3>Рефераты и эссе</h3>
+          <p>Грамотно структурированный материал с актуальными источниками</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+          </div>
+          <h3>Отчёты по практике</h3>
+          <p>Описываем реальную деятельность на предприятии</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+          </div>
+          <h3>Решение задач и расчётов</h3>
+          <p>Контрольные, лабораторные, домашние задания</p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">
+            <svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+          </div>
+          <h3>Презентации</h3>
+          <p>Профессиональные слайды для защиты и выступлений</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== How We Work Section ==================== -->
+  <section class="how-we-work" id="how-we-work">
+    <div class="container">
+      <h2 class="section-title">Как мы работаем</h2>
+      <p class="section-subtitle">Простой и понятный процесс — от заявки до готовой работы</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Оставляете заявку</h3>
+          <p>Опишите задачу и укажите сроки</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Обсуждаем детали</h3>
+          <p>Менеджер уточняет требования и согласовывает стоимость</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Получаете материал</h3>
+          <p>Готовая работа в оговоренный срок с бесплатными правками</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== Why Us Section ==================== -->
+  <section class="why-us" id="why-us">
+    <div class="container">
+      <h2 class="section-title">Почему выбирают нас</h2>
+      <p class="section-subtitle">Гарантируем качество и надёжность на каждом этапе</p>
+      <div class="features-list">
+        <div class="feature-item">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          </div>
+          <div class="feature-content">
+            <h3>Опытные авторы</h3>
+            <p>Специалисты по всем направлениям — от гуманитарных до технических</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
+          <div class="feature-content">
+            <h3>Соблюдение сроков</h3>
+            <p>Работаем в жёсткие дедлайны без потери качества</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+          </div>
+          <div class="feature-content">
+            <h3>Правки до результата</h3>
+            <p>Бесплатно вносим изменения до полного соответствия требованиям</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          </div>
+          <div class="feature-content">
+            <h3>Полная конфиденциальность</h3>
+            <p>Ваши данные и заказы никогда не будут переданы третьим лицам</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== Contact Form Section ==================== -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <h2 class="section-title">Оставить заявку</h2>
+      <p class="section-subtitle">Расскажите о своей задаче — мы поможем найти решение</p>
+      <div class="contact-form-wrapper">
+        <form class="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+          <p class="hidden">
+            <label>Не заполняйте это поле, если вы человек: <input name="bot-field"></label>
+          </p>
+          <div class="form-group">
+            <label for="name">Имя<span class="required-mark">*</span></label>
+            <input type="text" id="name" name="name" placeholder="Как к вам обращаться" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email<span class="required-mark">*</span></label>
+            <input type="email" id="email" name="email" placeholder="your@email.ru" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Телефон</label>
+            <input type="tel" id="phone" name="phone" placeholder="+7 (999) 123-45-67">
+          </div>
+          <div class="form-group">
+            <label for="message">Кратко опишите задачу<span class="required-mark">*</span></label>
+            <textarea id="message" name="message" placeholder="Например: курсовая по маркетингу, 30 стр., срок — 2 недели" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Отправить заявку</button>
+        </form>
+        <div class="form-success" id="formSuccess">
+          Спасибо! Свяжемся с вами в ближайшее время.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== Footer ==================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">Сдаём!</div>
+        <div class="footer-contact">
+          <a href="mailto:contact@example.com">contact@example.com</a>
+        </div>
+        <div class="footer-copyright">© 2025 Сдаём! Все права защищены.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const nav = document.getElementById('nav');
+
+    mobileMenuBtn.addEventListener('click', () => {
+      nav.classList.toggle('active');
+      mobileMenuBtn.setAttribute('aria-label', nav.classList.contains('active') ? 'Закрыть меню' : 'Открыть меню');
+    });
+
+    // Close mobile menu on link click
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('active');
+      });
+    });
+
+    // Handle form submission and show success message
+    const contactForm = document.querySelector('.contact-form');
+    const formSuccess = document.getElementById('formSuccess');
+
+    if (contactForm) {
+      contactForm.addEventListener('submit', (e) => {
+        // Netlify Forms will handle the submission automatically
+        // Show success message after a delay
+        setTimeout(() => {
+          contactForm.style.display = 'none';
+          formSuccess.classList.add('show');
+        }, 500);
+      });
+    }
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Header scroll effect
+    const header = document.querySelector('.header');
+    let lastScroll = 0;
+
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset;
+      
+      if (currentScroll > 100) {
+        header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+      } else {
+        header.style.boxShadow = 'none';
+      }
+      
+      lastScroll = currentScroll;
+    });
+  </script>
+</body>
+</html>
